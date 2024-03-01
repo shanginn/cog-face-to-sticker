@@ -180,6 +180,8 @@ class ComfyUI:
             out = self.ws.recv()
             if isinstance(out, str):
                 message = json.loads(out)
+                print('message: ', message)
+
                 if message["type"] == "executing":
                     data = message["data"]
                     if data["node"] is None and data["prompt_id"] == prompt_id:
@@ -192,6 +194,7 @@ class ComfyUI:
                             f"Executing node {data['node']}, title: {meta.get('title', 'Unknown')}, class type: {class_type}"
                         )
             else:
+                print('out', out)
                 continue
 
     def load_workflow(self, workflow, check_inputs=True, check_weights=True):
